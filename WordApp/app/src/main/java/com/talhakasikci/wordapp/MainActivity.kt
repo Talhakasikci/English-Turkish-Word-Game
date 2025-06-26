@@ -18,13 +18,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        viewModel.words.observe(this){list ->
-            list.forEach { word ->
-                if(word.level == "A1"){
-                    Log.d("WordEntry", "Word: ${word.word}, Turkish Meaning: ${word.meaning}, Level: ${word.level}")
-                }
 
-            }
-        }
     }
 }
