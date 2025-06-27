@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.EntryPage"
+    android:orientation="vertical"
+    >
+    <com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/PractiseWordsCV"
+    android:padding="10dp"
+    android:layout_marginTop="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+    style="@style/Widget.Material3.Button.OutlinedButton"
+    android:clickable="true"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Practise Words"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        />
+</com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/QuizWordsCV"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quiz Words"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
