@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
     }
     
     private fun actionFragment(level:String){
-        val action = MainFragmentDirections.actionMainFragmentToWordsFragment(level)
+        val action = MainFragmentDirections.actionMainFragmentToLetterFragment(level)
         findNavController().navigate(action)
     }
 

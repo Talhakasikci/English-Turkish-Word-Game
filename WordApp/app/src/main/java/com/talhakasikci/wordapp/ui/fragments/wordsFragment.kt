@@ -23,6 +23,7 @@ class wordsFragment : Fragment() {
     private lateinit var binding : FragmentWordsBinding
     private lateinit var RV :RecyclerView
     private lateinit var adapter : WordAdapter
+    private var Finallist: List<WordEntry> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,7 @@ class wordsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentWordsBinding.inflate(inflater, container, false)
         val level = args.EnglishLevel
+        val startingLetter = args.StartingLetter
         binding.level.text = "${getString(R.string.LevelDescription)}: ${level.toString()}"
 //
 //        viewModel.words.observe(viewLifecycleOwner) { list ->
@@ -56,11 +58,23 @@ class wordsFragment : Fragment() {
         viewModel.words.observe(viewLifecycleOwner) { list ->
             // filtrele
             WordArraytList.clear()
-            list.filter { it.level == level }.also { WordArraytList.addAll(it) }
+           Finallist =  list.filter { it.level == level && it.word.startsWith(startingLetter,ignoreCase = true)}.also { WordArraytList.addAll(it) }
 
-            // sonra adapter’ı güncelle
+            WordArraytList.addAll(Finallist)
+
             adapter.notifyDataSetChanged()
+
+            if (Finallist.isEmpty()){
+                binding.progressBar.visibility = View.GONE
+                binding.emptyView.visibility = View.VISIBLE
+                binding.wordsRV.visibility = View.GONE
+            } else {
+                binding.emptyView.visibility = View.GONE
+                binding.wordsRV.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
+            }
         }
+
 
         return binding.root
     }
