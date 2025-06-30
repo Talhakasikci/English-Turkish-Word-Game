@@ -27,6 +27,9 @@
             android:name="StartingLetter"
             app:argType="string"
             android:defaultValue="" />
+        <argument
+            android:name="mode"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/entryPage"
@@ -36,6 +39,9 @@
         <action
             android:id="@+id/action_entryPage_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_entryPage_to_wordsFragment"
+            app:destination="@id/wordsFragment" />
     </fragment>
     <fragment
         android:id="@+id/letterFragment"

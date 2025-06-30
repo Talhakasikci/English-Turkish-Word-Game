@@ -1,83 +1,95 @@
 package com.talhakasikci.wordapp.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.talhakasikci.wordapp.R
 import com.talhakasikci.wordapp.adapter.WordAdapter
 import com.talhakasikci.wordapp.data.WordEntry
 import com.talhakasikci.wordapp.databinding.FragmentWordsBinding
 import com.talhakasikci.wordapp.ui.WordListViewModel
 
+class wordsFragment : Fragment(R.layout.fragment_words) {
 
-class wordsFragment : Fragment() {
     private val args: wordsFragmentArgs by navArgs()
-    private val viewModel : WordListViewModel by viewModels()
-    private lateinit var WordArraytList: ArrayList<WordEntry>
-    private lateinit var binding : FragmentWordsBinding
-    private lateinit var RV :RecyclerView
-    private lateinit var adapter : WordAdapter
-    private var Finallist: List<WordEntry> = emptyList()
+    private val viewModel: WordListViewModel by viewModels()
+    private var _binding: FragmentWordsBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: WordAdapter
+    private val wordList = ArrayList<WordEntry>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        WordArraytList = ArrayList()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        _binding = FragmentWordsBinding.bind(view)
+        initRecyclerView()
+        initObservers()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentWordsBinding.inflate(inflater, container, false)
-        val level = args.EnglishLevel
-        val startingLetter = args.StartingLetter
-        binding.level.text = "${getString(R.string.LevelDescription)}: ${level.toString()}"
-//
-//        viewModel.words.observe(viewLifecycleOwner) { list ->
-//            WordArraytList = ArrayList()
-//            list.forEach { word ->
-//                if (word.level == level) {
-//                    WordArraytList.add(word)
-//                }
-//            }
-//
-//
-//        }
-        adapter = WordAdapter(WordArraytList)
+    private fun initRecyclerView() {
+        adapter = WordAdapter(wordList) { entry ->
+            viewModel.toggleFavorite(entry)
+        }
         binding.wordsRV.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@wordsFragment.adapter
         }
-        viewModel.words.observe(viewLifecycleOwner) { list ->
-            // filtrele
-            WordArraytList.clear()
-           Finallist =  list.filter { it.level == level && it.word.startsWith(startingLetter,ignoreCase = true)}.also { WordArraytList.addAll(it) }
-
-            WordArraytList.addAll(Finallist)
-
-            adapter.notifyDataSetChanged()
-
-            if (Finallist.isEmpty()){
-                binding.progressBar.visibility = View.GONE
-                binding.emptyView.visibility = View.VISIBLE
-                binding.wordsRV.visibility = View.GONE
-            } else {
-                binding.emptyView.visibility = View.GONE
-                binding.wordsRV.visibility = View.VISIBLE
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-
-
-        return binding.root
     }
 
+    private fun initObservers() {
+        when (args.mode) {
+            "fav" -> observeFavorites()
+            else  -> observeFiltered()
+        }
+    }
 
+    private fun observeFavorites() {
+        binding.level.text = getString(R.string.Fav_Words_Button)
+        viewModel.favoriteSet.observe(viewLifecycleOwner){favSet->
+            adapter.favoriteSet = favSet
+
+        }
+        viewModel.favoriteWords.observe(viewLifecycleOwner) { list ->
+            updateList(list)
+        }
+    }
+
+    private fun observeFiltered() {
+        binding.level.text = getString(R.string.LevelDescription) + ": ${args.EnglishLevel}"
+        viewModel.favoriteSet.observe(viewLifecycleOwner) { favSet ->
+            adapter.favoriteSet = favSet
+        }
+        viewModel.words.observe(viewLifecycleOwner) { all ->
+            val filteredByLevel = filterByLevel(all, args.EnglishLevel)
+            val filteredByLetter = filterByLetter(filteredByLevel, args.StartingLetter)
+            updateList(filteredByLetter)
+        }
+    }
+
+    private fun filterByLevel(list: List<WordEntry>, level: String) =
+        if (level.isNotEmpty()) list.filter { it.level == level } else list
+
+    private fun filterByLetter(list: List<WordEntry>, letter: String) =
+        if (letter.isNotEmpty()) list.filter { it.word.startsWith(letter, ignoreCase = true) } else list
+
+    private fun updateList(newList: List<WordEntry>) {
+        wordList.clear()
+        wordList.addAll(newList)
+        adapter.notifyDataSetChanged()
+        toggleEmptyView(newList.isEmpty())
+    }
+
+    private fun toggleEmptyView(isEmpty: Boolean) {
+        binding.apply {
+            emptyView.visibility   = if (isEmpty) View.VISIBLE else View.GONE
+            wordsRV.visibility     = if (isEmpty) View.GONE    else View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

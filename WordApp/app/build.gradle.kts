@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     alias(libs.plugins.kotlin.serialization)
     id("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
 }
 
 
@@ -62,4 +63,12 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.lifecycle.livedata.ktx)
+
+    //Room dependencies
+
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.room.ktx)
+
+
 }

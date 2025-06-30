@@ -4,4 +4,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_words_found">No words found</string>
+    <string name="Practise_words_Button">Practise Words</string>
+    <string name="Quiz_words_Button">Quiz Words</string>
+    <string name="Fav_Words_Button">Favorite Words</string>
 </resources>

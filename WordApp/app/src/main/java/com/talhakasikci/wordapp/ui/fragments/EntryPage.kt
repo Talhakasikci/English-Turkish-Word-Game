@@ -37,6 +37,13 @@ class EntryPage : Fragment() {
             val action = EntryPageDirections.actionEntryPageToMainFragment()
             requireView().findNavController().navigate(action)
         }
+
+        binding.FavWordsCV.setOnClickListener {
+            val action = EntryPageDirections.actionEntryPageToWordsFragment(
+                mode = "fav"
+            )
+            requireView().findNavController().navigate(action)
+        }
     }
 
 

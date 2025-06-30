@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Practise Words"
+        android:text ="@string/Practise_words_Button"
         android:textSize="24sp"
         android:gravity="center"
         android:layout_gravity="center"
@@ -40,7 +40,28 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quiz Words"
+            android:text="@string/Quiz_words_Button"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/FavWordsCV"
+        android:padding="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/Fav_Words_Button"
             android:textSize="24sp"
             android:gravity="center"
             android:layout_gravity="center"

@@ -44,6 +44,7 @@ class LetterFragment : Fragment() {
                 .actionLetterFragmentToWordsFragment(
                     EnglishLevel = level,
                     StartingLetter = letter
+                    , mode = "normal"  // ← Normal mode olarak ayarlıyoruz
                 )
             findNavController().navigate(action)
         }
