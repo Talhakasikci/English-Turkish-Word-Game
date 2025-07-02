@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_entryPage_to_wordsFragment"
             app:destination="@id/wordsFragment" />
+        <action
+            android:id="@+id/action_entryPage_to_quizFragment"
+            app:destination="@id/quizFragment" />
     </fragment>
     <fragment
         android:id="@+id/letterFragment"
@@ -56,4 +59,9 @@
             app:argType="string"
             android:defaultValue="null" />
     </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.talhakasikci.wordapp.ui.fragments.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" />
 </navigation>

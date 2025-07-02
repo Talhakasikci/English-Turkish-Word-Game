@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.QuizFragment"
+    android:orientation="vertical"
+    android:layout_marginTop="40dp"
+    android:layout_marginBottom="40dp"
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:id="@+id/QuizQuestionWordsCV"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:id="@+id/QuestionWordTV"
+            android:textSize="36sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/Answer1CV"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:id="@+id/Answer1TV"
+            android:textSize="26sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/Answer2CV"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:id="@+id/Answer2TV"
+            android:textSize="26sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/Answer3CV"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:textSize="26sp"
+            android:id="@+id/Answer3TV"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+
+        android:id="@+id/Answer4CV"
+        android:padding="10dp"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Text"
+            android:id="@+id/Answer4TV"
+            android:textSize="26sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

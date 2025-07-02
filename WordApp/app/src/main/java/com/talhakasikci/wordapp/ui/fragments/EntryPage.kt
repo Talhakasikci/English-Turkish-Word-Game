@@ -44,6 +44,11 @@ class EntryPage : Fragment() {
             )
             requireView().findNavController().navigate(action)
         }
+
+        binding.QuizWordsCV.setOnClickListener {
+            val action = EntryPageDirections.actionEntryPageToQuizFragment()
+            requireView().findNavController().navigate(action)
+        }
     }
 
 
