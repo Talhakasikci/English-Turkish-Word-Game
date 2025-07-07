@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainFragment_to_letterFragment"
             app:destination="@id/letterFragment" />
+        <argument
+            android:name="targetID"
+            app:argType="reference" />
     </fragment>
     <fragment
         android:id="@+id/wordsFragment"
@@ -42,9 +45,6 @@
         <action
             android:id="@+id/action_entryPage_to_wordsFragment"
             app:destination="@id/wordsFragment" />
-        <action
-            android:id="@+id/action_entryPage_to_quizFragment"
-            app:destination="@id/quizFragment" />
     </fragment>
     <fragment
         android:id="@+id/letterFragment"
@@ -58,10 +58,23 @@
             android:name="EnglishLevel"
             app:argType="string"
             android:defaultValue="null" />
+        <action
+            android:id="@+id/action_letterFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+        <argument
+            android:name="targetID"
+            app:argType="reference" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.talhakasikci.wordapp.ui.fragments.QuizFragment"
         android:label="fragment_quiz"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz" >
+        <argument
+            android:name="level"
+            app:argType="string" />
+        <argument
+            android:name="letter"
+            app:argType="string" />
+    </fragment>
 </navigation>

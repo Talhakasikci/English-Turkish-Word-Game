@@ -8,4 +8,5 @@ data class FavoriteWordEntity(
     @PrimaryKey val word: String,
     val meaning: String,
     val level: String
+
 )

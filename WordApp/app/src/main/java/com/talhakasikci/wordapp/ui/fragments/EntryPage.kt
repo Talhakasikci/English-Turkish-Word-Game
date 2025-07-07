@@ -34,7 +34,7 @@ class EntryPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.PractiseWordsCV.setOnClickListener {
-            val action = EntryPageDirections.actionEntryPageToMainFragment()
+            val action = EntryPageDirections.actionEntryPageToMainFragment(R.id.wordsFragment)
             requireView().findNavController().navigate(action)
         }
 
@@ -46,7 +46,7 @@ class EntryPage : Fragment() {
         }
 
         binding.QuizWordsCV.setOnClickListener {
-            val action = EntryPageDirections.actionEntryPageToQuizFragment()
+            val action = EntryPageDirections.actionEntryPageToMainFragment(R.id.quizFragment)
             requireView().findNavController().navigate(action)
         }
     }

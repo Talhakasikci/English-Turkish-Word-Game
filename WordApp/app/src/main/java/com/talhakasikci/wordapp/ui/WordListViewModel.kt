@@ -33,7 +33,14 @@ class WordListViewModel(application: Application): AndroidViewModel(application)
             _words.value = list
         }
     }
+    fun isFav(word:String){
+        viewModelScope.launch {
+            if(repository.isFavorite(word)){
+            }else{
 
+            }
+        }
+    }
     fun toggleFavorite(entry: WordEntry) {
         viewModelScope.launch {
             val word = entry.word

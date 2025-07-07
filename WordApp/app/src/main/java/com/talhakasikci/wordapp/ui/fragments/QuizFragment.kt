@@ -1,26 +1,35 @@
 package com.talhakasikci.wordapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.DefaultTab.AlbumsTab.value
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.talhakasikci.wordapp.R
 import com.talhakasikci.wordapp.data.McQuestions
 import com.talhakasikci.wordapp.data.WordEntry
 import com.talhakasikci.wordapp.data.WordRepository
 import com.talhakasikci.wordapp.databinding.FragmentQuizBinding
 import com.talhakasikci.wordapp.ui.WordListViewModel
+import java.lang.reflect.Array.set
 
 
 class QuizFragment : Fragment() {
 
+    private val args: QuizFragmentArgs by navArgs()
+    private val level : String by lazy{args.level}
+    private val letter : String by lazy{args.letter}
     private lateinit var binding: FragmentQuizBinding
     private val viewModel: WordListViewModel by viewModels()
     private var wordList: List<WordEntry> = emptyList()
+    private var wordListSize : Int = 0
     private var currentIndex = 0
     private lateinit var question: List<McQuestions>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,16 +37,24 @@ class QuizFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentQuizBinding.inflate(layoutInflater, container, false)
+
         viewModel.words.observe(viewLifecycleOwner) {
-            wordList = it
-            question = generateQuiz(wordList, 10)
+            wordList = it.filter { it.level == level  && letter.any { start->
+                it.word.startsWith(start, ignoreCase = true)
+            }}
+            wordListSize = wordList.size
+            question = generateQuiz(wordList, wordListSize)
             currentIndex = 0
             showQuestion()
             setUpAnswerListeners()
         }
 
+
+
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,14 +63,37 @@ class QuizFragment : Fragment() {
     }
 
     private fun showQuestion() {
+
+
         if (question.isEmpty()) return
         val q = question[currentIndex]
+        isFav(q.englishWord)
         binding.apply {
             QuestionWordTV.text = q.englishWord
             Answer1TV.text = q.options[0]
             Answer2TV.text = q.options[1]
             Answer3TV.text = q.options[2]
             Answer4TV.text = q.options[3]
+            addFavorite.setOnClickListener {
+                viewModel.toggleFavorite(
+                    WordEntry(
+                        word = q.englishWord,
+                        meaning = q.correctMeaning,
+                        level = q.level
+                    )
+                )
+            }
+        }
+
+    }
+
+    private fun isFav(word:String) {
+        viewModel.favoriteWords.observe(viewLifecycleOwner){fav->
+            val isFav = fav.any { it.word == word }
+            binding.addFavorite.setImageResource(
+                if (isFav) R.drawable.filled_star else R.drawable.add_favorite
+            )
+
         }
     }
 
@@ -97,6 +137,7 @@ class QuizFragment : Fragment() {
                     level = entry.level
                 )
             }
+
     }
 
     private fun setUpAnswerListeners() {
@@ -110,6 +151,7 @@ class QuizFragment : Fragment() {
                 checkAnswer(idx)
             }
         }
+        Log.e("QuizzFragment","letter: $letter")
     }
 
 
