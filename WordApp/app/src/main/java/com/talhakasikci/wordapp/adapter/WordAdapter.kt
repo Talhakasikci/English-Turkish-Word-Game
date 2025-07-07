@@ -39,7 +39,7 @@ class WordAdapter(private val WordsArrayList: ArrayList<WordEntry>,
             englishWord.text = entry.word
             turkishWord.text = entry.meaning
 
-            favButton.setIconResource(
+            favButton.setImageResource(
                 if (isFav) R.drawable.filled_star
                 else R.drawable.add_favorite
             )

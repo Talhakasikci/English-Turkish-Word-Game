@@ -1,14 +1,18 @@
 package com.talhakasikci.wordapp.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.DefaultTab.AlbumsTab.value
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.card.MaterialCardView
 import com.talhakasikci.wordapp.R
 import com.talhakasikci.wordapp.data.McQuestions
 import com.talhakasikci.wordapp.data.WordEntry
@@ -28,6 +32,8 @@ class QuizFragment : Fragment() {
     private var wordList: List<WordEntry> = emptyList()
     private var wordListSize : Int = 0
     private var currentIndex = 0
+    private var correnctAnswer = 0
+    private var wrongAnswer = 0
     private lateinit var question: List<McQuestions>
 
 
@@ -64,7 +70,7 @@ class QuizFragment : Fragment() {
 
     private fun showQuestion() {
 
-
+        binding.wordCounterTV.text = "${currentIndex + 1} / ${question.size}"
         if (question.isEmpty()) return
         val q = question[currentIndex]
         isFav(q.englishWord)
@@ -125,6 +131,7 @@ class QuizFragment : Fragment() {
         pool: List<WordEntry>,
         count: Int
     ): List<McQuestions> {
+        hideAnimation()
         return pool.shuffled()
             .take(count)
             .map { entry ->
@@ -142,32 +149,82 @@ class QuizFragment : Fragment() {
 
     private fun setUpAnswerListeners() {
         listOf(
-            binding.Answer1TV to 0,
-            binding.Answer2TV to 1,
-            binding.Answer3TV to 2,
-            binding.Answer4TV to 3
+            binding.Answer1CV to 0,
+            binding.Answer2CV to 1,
+            binding.Answer3CV to 2,
+            binding.Answer4CV to 3
         ).forEach { (card, idx) ->
             card.setOnClickListener {
-                checkAnswer(idx)
+                checkAnswer(card,idx)
             }
         }
         Log.e("QuizzFragment","letter: $letter")
     }
 
 
-    fun checkAnswer(idx: Int) {
+    fun checkAnswer(card:MaterialCardView,idx: Int) {
+
         val q = question[currentIndex]
         val choosen = q.options[idx]
         if (choosen == q.correctMeaning) {
             //doğru
-            currentIndex++
-            if (currentIndex < question.size) {
-                showQuestion()
-            } else {
-                //yanlış
-            }
+            val green = ContextCompat.getColor(requireContext(), R.color.green_true)
+            card.setCardBackgroundColor(green)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                resetCardBackground(card)
+                currentIndex++
+                correnctAnswer++
+                if (currentIndex < question.size) {
+                    showQuestion()
+                } else {
+                    // Quiz bitti
+                }
+            },500)
+
+
+        }else{
+            val green = ContextCompat.getColor(requireContext(), R.color.red_false)
+            card.setCardBackgroundColor(green)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                resetCardBackground(card)
+                currentIndex++
+                wrongAnswer++
+                if (currentIndex < question.size) {
+                    showQuestion()
+                } else {
+                    // Quiz bitti
+                }
+            },500)
         }
 
+    }
+
+    private fun resetCardBackground(card: MaterialCardView) {
+        val default = ContextCompat.getColor(requireContext(), R.color.cardViewColor)
+        binding.Answer1CV.setCardBackgroundColor(default)
+        binding.Answer2CV.setCardBackgroundColor(default)
+        binding.Answer3CV.setCardBackgroundColor(default)
+        binding.Answer4CV.setCardBackgroundColor(default)
+    }
+
+    fun hideAnimation(){
+        binding.apply{
+            binding.wordCardViewAnimation.visibility = View.GONE
+            binding.Answer1LottieAnimationView.visibility = View.GONE
+            binding.Answer2LottieAnimationView.visibility = View.GONE
+            binding.Answer3LottieAnimationView.visibility = View.GONE
+            binding.Answer4LottieAnimationView.visibility = View.GONE
+
+            binding.addFavorite.visibility = View.VISIBLE
+            binding.wordCounterTV.visibility = View.VISIBLE
+            binding.QuestionWordTV.visibility = View.VISIBLE
+            binding.Answer1TV.visibility = View.VISIBLE
+            binding.Answer2TV.visibility = View.VISIBLE
+            binding.Answer3TV.visibility = View.VISIBLE
+            binding.Answer4TV.visibility = View.VISIBLE
+        }
     }
 
 }

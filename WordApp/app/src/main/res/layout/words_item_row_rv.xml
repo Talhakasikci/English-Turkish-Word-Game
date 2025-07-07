@@ -8,7 +8,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/cardViewColor">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,12 +33,13 @@
             android:padding="20dp"
             android:gravity="center"/>
 
-        <com.google.android.material.button.MaterialButton
+        <ImageView
             android:id="@+id/favButton"
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/add_favorite" />
+            android:layout_gravity="center"
+            android:src="@drawable/add_favorite" />
 
     </LinearLayout>
 

@@ -16,28 +16,56 @@
         android:id="@+id/QuizQuestionWordsCV"
         android:padding="10dp"
         android:layout_margin="20dp"
+        app:cardBackgroundColor="@color/cardViewColor"
         >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add_favorite"
-            android:id="@+id/addFavorite"
-            android:layout_gravity="end"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            />
-
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Text"
-            android:id="@+id/QuestionWordTV"
-            android:textSize="36sp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/wordCardViewAnimation"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:visibility="visible"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_favorite"
+                android:id="@+id/addFavorite"
+                android:layout_gravity="end"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:clickable="true"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Text"
+                android:id="@+id/QuestionWordTV"
+                android:textSize="36sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/wordCounterTV"
+                tools:text="0/0"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                />
+        </FrameLayout>
+
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -47,17 +75,32 @@
         android:padding="10dp"
         android:layout_margin="20dp"
         android:clickable="true"
+        app:cardBackgroundColor="@color/cardViewColor"
         >
-
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Text"
-            android:id="@+id/Answer1TV"
-            android:textSize="26sp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent">
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/Answer1LottieAnimationView"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:visibility="visible"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Text"
+                android:id="@+id/Answer1TV"
+                android:textSize="26sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                />
+        </FrameLayout>
+
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -67,17 +110,32 @@
         android:padding="10dp"
         android:layout_margin="20dp"
         android:clickable="true"
+        app:cardBackgroundColor="@color/cardViewColor"
         >
-
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Text"
-            android:id="@+id/Answer2TV"
-            android:textSize="26sp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent">
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/Answer2LottieAnimationView"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:visibility="visible"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Text"
+                android:id="@+id/Answer2TV"
+                android:textSize="26sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                />
+        </FrameLayout>
+
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -87,38 +145,69 @@
         android:padding="10dp"
         android:layout_margin="20dp"
         android:clickable="true"
+        app:cardBackgroundColor="@color/cardViewColor"
         >
-
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Text"
-            android:textSize="26sp"
-            android:id="@+id/Answer3TV"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent"
+            >
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/Answer3LottieAnimationView"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:visibility="visible"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Text"
+                android:textSize="26sp"
+                android:id="@+id/Answer3TV"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                />
+        </FrameLayout>
+
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-
         android:id="@+id/Answer4CV"
         android:padding="10dp"
         android:layout_margin="20dp"
         android:clickable="true"
+        app:cardBackgroundColor="@color/cardViewColor"
         >
-
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Text"
-            android:id="@+id/Answer4TV"
-            android:textSize="26sp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            />
+            android:layout_height="match_parent"
+            >
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/Answer4LottieAnimationView"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:visibility="visible"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Text"
+                android:id="@+id/Answer4TV"
+                android:textSize="26sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                />
+        </FrameLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
