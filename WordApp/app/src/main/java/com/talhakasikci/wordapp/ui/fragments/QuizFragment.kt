@@ -25,8 +25,18 @@ import java.lang.reflect.Array.set
 class QuizFragment : Fragment() {
 
     private val args: QuizFragmentArgs by navArgs()
-    private val level : String by lazy{args.level}
-    private val letter : String by lazy{args.letter}
+    private val level:String by lazy{
+        when{
+            args.level.isNotEmpty()-> args.level
+            else->viewModel.selectedLevel.value?:""
+        }
+    }
+    private val letter : String by lazy{
+        when{
+            args.letter.isNotEmpty()->args.letter
+            else-> viewModel.selectedLetter.value ?:""
+        }
+    }
     private lateinit var binding: FragmentQuizBinding
     private val viewModel: WordListViewModel by viewModels()
     private var wordList: List<WordEntry> = emptyList()
@@ -35,6 +45,7 @@ class QuizFragment : Fragment() {
     private var correnctAnswer = 0
     private var wrongAnswer = 0
     private lateinit var question: List<McQuestions>
+
 
 
     override fun onCreateView(
@@ -166,9 +177,22 @@ class QuizFragment : Fragment() {
 
         val q = question[currentIndex]
         val choosen = q.options[idx]
+
+        val correctIndex = q.options.indexOf(q.correctMeaning)
+        val correctCard = when(correctIndex){
+            0-> binding.Answer1CV
+            1-> binding.Answer2CV
+            2-> binding.Answer3CV
+            3-> binding.Answer4CV
+            else-> null
+        }
+
+        val green = ContextCompat.getColor(requireContext(), R.color.green_true)
+        val red = ContextCompat.getColor(requireContext(), R.color.red_false)
+
         if (choosen == q.correctMeaning) {
             //doğru
-            val green = ContextCompat.getColor(requireContext(), R.color.green_true)
+
             card.setCardBackgroundColor(green)
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -184,8 +208,9 @@ class QuizFragment : Fragment() {
 
 
         }else{
-            val green = ContextCompat.getColor(requireContext(), R.color.red_false)
-            card.setCardBackgroundColor(green)
+
+            correctCard?.setCardBackgroundColor(green)
+            card.setCardBackgroundColor(red)
 
             Handler(Looper.getMainLooper()).postDelayed({
                 resetCardBackground(card)

@@ -38,9 +38,15 @@ class wordsFragment : Fragment(R.layout.fragment_words) {
     }
 
     private fun initObservers() {
-        when (args.mode) {
-            "fav" -> observeFavorites()
-            else  -> observeFiltered()
+        val mode = when{
+            args.mode.isNotEmpty()->args.mode
+            viewModel.currentMode.value == "fav"->"fav"
+            else->"practise"
+        }
+
+        when(mode){
+            "fav"->observeFavorites()
+            else-> observeFiltered()
         }
     }
 
@@ -56,7 +62,16 @@ class wordsFragment : Fragment(R.layout.fragment_words) {
     }
 
     private fun observeFiltered() {
-        binding.level.text = getString(R.string.LevelDescription) + ": ${args.EnglishLevel}"
+        val level = when{
+            args.EnglishLevel.isNotEmpty()->args.EnglishLevel
+            else -> viewModel.selectedLevel.value?:""
+        }
+        val letter = when{
+            args.StartingLetter.isNotEmpty()->args.StartingLetter
+            else-> viewModel.selectedLevel.value?:""
+        }
+        binding.level.text = getString(R.string.LevelDescription)+ ": $level"
+
         viewModel.favoriteSet.observe(viewLifecycleOwner) { favSet ->
             adapter.favoriteSet = favSet
         }

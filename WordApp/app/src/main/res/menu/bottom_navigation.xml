@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/wordsFragment"
+    android:title="@string/Practise_words_Button"
+    android:icon="@drawable/word_icon"
+    />
+<item android:id="@+id/mainFragment"
+    android:title="@string/Quiz_words_Button"
+    android:icon="@drawable/quiz_icon"
+    />
+<item android:id="@+id/favFragment"
+    android:title="@string/Fav_Words_Button"
+    android:icon="@drawable/favorite_icon"
+    />
+</menu>

@@ -70,8 +70,10 @@ class MainFragment : Fragment() {
 
 
     }
-    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     private fun actionFragment(level:String){
+        viewModel.selectedLevel(level)
+
         val target = args.targetID
         if(target == R.id.wordsFragment){
             val action = MainFragmentDirections.actionMainFragmentToLetterFragment(EnglishLevel = level, targetID = target)
@@ -80,7 +82,7 @@ class MainFragment : Fragment() {
             val action = MainFragmentDirections.actionMainFragmentToLetterFragment(EnglishLevel = level, targetID = target)
             findNavController().navigate(action)
         }
-    }// hata !!!!!!!!!!!!!!!
+    }
 
 
 }
